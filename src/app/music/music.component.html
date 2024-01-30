@@ -1,0 +1,28 @@
+<mat-card class="carteCustom">
+  <mat-card-title-group>
+    <mat-card-title>
+      <p>{{music?.title}}</p>
+    </mat-card-title>
+    <mat-card-subtitle>{{music?.artist}}, {{music?.album}}</mat-card-subtitle>
+    <img [src]="music?.picture" mat-card-sm-image alt="" />
+  </mat-card-title-group>
+
+  <mat-card-content>
+    <p class="music-description">{{music?.description}}</p>
+    <p>{{music?.duration}}</p>
+    <p>{{music?.date}}</p>
+  </mat-card-content>
+
+  <mat-card-footer>
+    <mat-chip-set>
+      <mat-chip *ngFor="let style of music?.styles">{{style}}</mat-chip>
+    </mat-chip-set>
+
+    <button mat-fab color="primary" (click)="update()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-fab color="warn" (click)="delete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-footer>
+</mat-card>

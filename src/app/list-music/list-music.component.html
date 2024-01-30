@@ -1,0 +1,28 @@
+<section [ngSwitch]="view">
+  <section *ngSwitchCase="'card'">
+    <app-music *ngFor="let music of listMusic" [music]="music" (updated)="update($event)"
+      (deleted)="delete($event)"></app-music>
+  </section>
+
+  <section *ngSwitchCase="'table'">
+    <table mat-table [dataSource]="listMusic">
+      <!-- Header Section -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
+        <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+      </ng-container>
+
+      <!-- Row Section -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="setSelectedMusic(row)"></tr>
+    </table>
+  </section>
+</section>
+
+<app-formulaire *ngIf="this.selectedMusic !== undefined" [music]="this.selectedMusic" [mode]="'edition'"
+  (submitForm$)="this.test($event)"></app-formulaire>
+
+<button (click)="switchView()" mat-fab color="warn">
+  <em class="material-icons" *ngIf="view === 'card'">list</em>
+  <em class="material-icons" *ngIf="view === 'table'">view_stream</em>
+</button>
